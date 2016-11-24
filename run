@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -e
+
+log() {
+  echo "---> $*"
+}
+
+run() {
+  echo "\$ $*"
+  "$@"
+}
+
+build() {
+  log 'building'
+
+  run go generate ./...
+  run go build ./cmd/ddrop
+}
+
+serve() {
+  build
+  log 'starting server'
+  run ./ddrop
+}
+
+watch() {
+  log 'serving and watching for changes'
+  (cd cmd/ddrop && fresh)
+}
+
+unknown_command() {
+  echo "$0: unknown command: $1"
+  exit 1
+}
+
+main() {
+  case "$1" in
+    build) build ;;
+    serve) serve ;;
+    watch) watch ;;
+    *) unknown_command "$1";;
+  esac
+}
+
+main "$@"

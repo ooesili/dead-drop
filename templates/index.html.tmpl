@@ -1,0 +1,18 @@
+{{ define "content" }}
+<div class="container">
+  <object data="/assets/logo.svg" type="image/svg+xml"></object>
+  <h1><div class="logo-text">dead drop</div></h1>
+  <form action="/drop" method="POST" enctype="multipart/form-data">
+    <label for="file" class="button button-pick">
+      pick a file
+    </label>
+    <input id="file" type="file" name="file">
+    <button id="upload" class="button button-upload">
+      upload
+    </button>
+    {{.csrfField}}
+  </form>
+</div>
+
+<script type="text/javascript" src="/assets/main.js"></script>
+{{ end }}

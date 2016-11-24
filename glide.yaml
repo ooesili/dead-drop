@@ -1,0 +1,6 @@
+package: github.com/ooesili/dead-drop
+import:
+- package: github.com/julienschmidt/httprouter
+- package: github.com/gorilla/csrf
+- package: github.com/jteeuwen/go-bindata
+- package: github.com/elazarl/go-bindata-assetfs

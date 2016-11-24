@@ -1,0 +1,55 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.container {
+  padding-top: 2em;
+}
+
+.logo-text {
+  text-transform: lowercase;
+  font-size: 3em;
+
+  display: inline-block;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 0.6em;
+  padding-bottom: 0.2em;;
+  padding: 0 0.5em 0.2em 0.5em;
+}
+
+.button {
+  background-color: black;
+  color: white;
+  font-size: 1.2em;
+  padding: 0.8em;
+  border-width: 0;
+  margin: 0 0.3em;
+  cursor: pointer;
+}
+
+.button-upload {
+  background-color: hsl(128, 50%, 50%);
+}
+
+.button-upload:active {
+  background-color: hsl(128, 50%, 65%);
+}
+
+.button-pick:active {
+  background-color: hsl(0, 0%, 20%);
+}
+
+.button:disabled {
+  background-color: hsl(0, 0%, 43%);
+  color: hsl(0, 0%, 70%);
+  cursor: default;
+}
