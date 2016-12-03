@@ -13,7 +13,6 @@
   }
 
   function onChangeFile (e) {
-    console.log(fileInput.files[0].name)
     state.uploadDisabled = false
     renderView()
   }
