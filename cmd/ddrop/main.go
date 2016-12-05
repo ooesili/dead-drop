@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/csrf"
 	"github.com/julienschmidt/httprouter"
 	"github.com/ooesili/dead-drop/internal"
+	"github.com/ooesili/dead-drop/internal/config"
 )
 
 func main() {
@@ -19,6 +20,11 @@ func main() {
 }
 
 func realMain() error {
+	config, err := internal.ConfigSchema.NewConfig(os.LookupEnv)
+	if err != nil {
+		return err
+	}
+
 	dropHandler := internal.DropHandler{}
 
 	router := httprouter.New()
@@ -32,19 +38,13 @@ func realMain() error {
 		csrf.Secure(false),
 	)
 
-	addr := getAddr()
+	addr := getAddr(config)
 	fmt.Printf("listening on %s for dead drop\n", addr)
 	return http.ListenAndServe(addr, wrapCSRF(router))
 }
 
-func getAddr() string {
-	host := "0.0.0.0"
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "3000"
-	}
-
-	return fmt.Sprintf("%s:%s", host, port)
+func getAddr(config config.Config) string {
+	return config.Get("BIND_ADDR") + ":" + config.Get("PORT")
 }
 
 func mustGetRandomBytes(size int) []byte {
