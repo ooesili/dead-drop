@@ -1,8 +1,9 @@
 package config
 
 import (
-	"errors"
 	"fmt"
+	"sort"
+	"strings"
 )
 
 func Optional(defaultValue string) Option {
@@ -31,17 +32,28 @@ func (s Schema) NewConfig(source Source) (Config, error) {
 	config := Config{
 		values: map[string]string{},
 	}
+	var missingKeys []string
 
 	for key, option := range s {
 		value, ok := source(key)
 		if !ok && option.required {
-			return Config{}, errors.New("missing configuration keys: REQUIRED")
+			missingKeys = append(missingKeys, key)
+			continue
 		}
 
 		if !ok {
 			value = option.defaultValue
 		}
 		config.values[key] = value
+	}
+
+	if len(missingKeys) > 0 {
+		sort.Strings(missingKeys)
+
+		return Config{}, fmt.Errorf(
+			"missing configuration keys: %s",
+			strings.Join(missingKeys, ", "),
+		)
 	}
 
 	return config, nil

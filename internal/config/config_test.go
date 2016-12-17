@@ -51,6 +51,22 @@ var _ = Describe("configuration validation", func() {
 		})
 	})
 
+	Describe("a schema with multiple required values", func() {
+		schema := Schema{
+			"REQUIRED":  Required(),
+			"MANDITORY": Required(),
+		}
+
+		Context("when the source is missng all values", func() {
+			source := mapSource(nil)
+
+			It("return an error describing all missing values", func() {
+				_, err := schema.NewConfig(source)
+				Expect(err).To(MatchError("missing configuration keys: MANDITORY, REQUIRED"))
+			})
+		})
+	})
+
 	Describe("a schema with an optional value", func() {
 		schema := Schema{
 			"OPTIONAL": Optional("default value"),
