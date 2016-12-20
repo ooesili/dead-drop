@@ -12,7 +12,7 @@ run() {
 
 build() {
   log 'building'
-  run go generate ./...
+  run go generate $(glide novendor)
   run go build ./cmd/ddrop
 }
 
@@ -20,6 +20,12 @@ serve() {
   build
   log 'starting server'
   run ./ddrop
+}
+
+tests() {
+  log 'running tests'
+  run go ./internal/...
+  run ginkgo -r $(glide novendor)
 }
 
 watch() {
@@ -40,8 +46,9 @@ main() {
   case "$1" in
     build) build ;;
     serve) serve ;;
+    tests) tests ;;
     watch) watch ;;
-    *) fatal "unknown command: $1";;
+    *) fatal "unknown command: $1" ;;
   esac
 }
 
