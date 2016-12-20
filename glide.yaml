@@ -4,3 +4,6 @@ import:
 - package: github.com/gorilla/csrf
 - package: github.com/jteeuwen/go-bindata
 - package: github.com/elazarl/go-bindata-assetfs
+- package: github.com/onsi/ginkgo
+- package: github.com/onsi/gomega
+- package: github.com/sclevine/agouti

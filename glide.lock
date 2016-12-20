@@ -1,5 +1,5 @@
-hash: 08ab25e51a4daa996ded940c219f932dce5df2b29bfee301d9b270f6b97ed82e
-updated: 2016-11-23T20:59:37.258662357-07:00
+hash: da001c8cf5b4acfe5b3ca79a168690cb91914e7191e509fdeb1dfff2ea1513c2
+updated: 2016-12-19T01:56:05.977973971-07:00
 imports:
 - name: github.com/elazarl/go-bindata-assetfs
   version: 9a6736ed45b44bf3835afeebb3034b57ed329f3e
@@ -13,6 +13,49 @@ imports:
   version: a0ff2567cfb70903282db057e799fd826784d41d
 - name: github.com/julienschmidt/httprouter
   version: 4563b0ba73e4db6c6423b60a26f3cadd2e9a1ec9
+- name: github.com/onsi/ginkgo
+  version: 00054c0bb96fc880d4e0be1b90937fad438c5290
+  subpackages:
+  - config
+  - internal/codelocation
+  - internal/containernode
+  - internal/failer
+  - internal/leafnodes
+  - internal/remote
+  - internal/spec
+  - internal/specrunner
+  - internal/suite
+  - internal/testingtproxy
+  - internal/writer
+  - reporters
+  - reporters/stenographer
+  - reporters/stenographer/support/go-colorable
+  - reporters/stenographer/support/go-isatty
+  - types
+- name: github.com/onsi/gomega
+  version: f1f0f388b31eca4e2cbe7a6dd8a3a1dfddda5b1c
+  subpackages:
+  - format
+  - gbytes
+  - gexec
+  - internal/assertion
+  - internal/asyncassertion
+  - internal/oraclematcher
+  - internal/testingtsupport
+  - matchers
+  - matchers/support/goraph/bipartitegraph
+  - matchers/support/goraph/edge
+  - matchers/support/goraph/node
+  - matchers/support/goraph/util
+  - types
 - name: github.com/pkg/errors
   version: 248dadf4e9068a0b3e79f02ed0a610d935de5302
-testImports: []
+- name: github.com/sclevine/agouti
+  version: da6ce95d89acab048b648c71fb45b57622d3457e
+testImports:
+- name: golang.org/x/sys
+  version: d75a52659825e75fff6158388dddc6a5b04f9ba5
+  subpackages:
+  - unix
+- name: gopkg.in/yaml.v2
+  version: a5b47d31c556af34a302ce5d659e6fea44d90de0
