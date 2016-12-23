@@ -1,5 +1,5 @@
-hash: da001c8cf5b4acfe5b3ca79a168690cb91914e7191e509fdeb1dfff2ea1513c2
-updated: 2016-12-19T01:56:05.977973971-07:00
+hash: b32f1ee8fed14a006807d784db472500e349ec3feed814d1774c8bb9c8779275
+updated: 2016-12-22T21:38:30.386591243-07:00
 imports:
 - name: github.com/elazarl/go-bindata-assetfs
   version: 9a6736ed45b44bf3835afeebb3034b57ed329f3e
@@ -13,8 +13,10 @@ imports:
   version: a0ff2567cfb70903282db057e799fd826784d41d
 - name: github.com/julienschmidt/httprouter
   version: 4563b0ba73e4db6c6423b60a26f3cadd2e9a1ec9
+- name: github.com/justinas/alice
+  version: 1051eaf52fcafdd87ead59d28b065f1fcb8274ec
 - name: github.com/onsi/ginkgo
-  version: 00054c0bb96fc880d4e0be1b90937fad438c5290
+  version: e185767ab450dd717718019ebe6115112af5c575
   subpackages:
   - config
   - internal/codelocation
@@ -52,6 +54,15 @@ imports:
   version: 248dadf4e9068a0b3e79f02ed0a610d935de5302
 - name: github.com/sclevine/agouti
   version: da6ce95d89acab048b648c71fb45b57622d3457e
+  subpackages:
+  - api
+  - api/internal/bus
+  - api/internal/service
+  - internal/element
+  - internal/target
+  - matchers
+  - matchers/internal
+  - matchers/internal/colorparser
 testImports:
 - name: golang.org/x/sys
   version: d75a52659825e75fff6158388dddc6a5b04f9ba5

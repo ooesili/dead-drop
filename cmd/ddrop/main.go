@@ -7,9 +7,12 @@ import (
 	"os"
 
 	"github.com/gorilla/csrf"
-	"github.com/julienschmidt/httprouter"
+	"github.com/justinas/alice"
 	"github.com/ooesili/dead-drop/internal"
 	"github.com/ooesili/dead-drop/internal/config"
+	"github.com/ooesili/dead-drop/internal/handler"
+	"github.com/ooesili/dead-drop/internal/localdrop"
+	"github.com/ooesili/dead-drop/internal/view"
 )
 
 func main() {
@@ -25,22 +28,11 @@ func realMain() error {
 		return err
 	}
 
-	dropHandler := internal.DropHandler{}
-
-	router := httprouter.New()
-	router.GET("/", dropHandler.DropForm)
-	router.POST("/drop", dropHandler.Drop)
-	router.GET("/complete", dropHandler.Complete)
-	router.ServeFiles("/assets/*filepath", internal.AssetFS)
-
-	wrapCSRF := csrf.Protect(
-		mustGetRandomBytes(32),
-		csrf.Secure(false),
-	)
+	app := newApp()
 
 	addr := getAddr(config)
 	fmt.Printf("listening on %s for dead drop\n", addr)
-	return http.ListenAndServe(addr, wrapCSRF(router))
+	return http.ListenAndServe(addr, app)
 }
 
 func getAddr(config config.Config) string {
@@ -53,4 +45,24 @@ func mustGetRandomBytes(size int) []byte {
 		panic(err)
 	}
 	return csrfKey
+}
+
+func newApp() http.Handler {
+	dropper := localdrop.LocalDrop{
+		Out:     os.Stdout,
+		BaseDir: ".",
+	}
+
+	router := handler.NewRouter(
+		dropper,
+		view.New(),
+	)
+	router.ServeFiles("/assets/*filepath", internal.AssetFS)
+
+	wrapCSRF := csrf.Protect(
+		mustGetRandomBytes(32),
+		csrf.Secure(false),
+	)
+
+	return alice.New(wrapCSRF).Then(router)
 }

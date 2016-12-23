@@ -7,3 +7,4 @@ import:
 - package: github.com/onsi/ginkgo
 - package: github.com/onsi/gomega
 - package: github.com/sclevine/agouti
+- package: github.com/justinas/alice
